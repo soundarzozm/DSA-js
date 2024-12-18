@@ -16,15 +16,15 @@ export class BinaryTree {
     postOrder: Array<number | string>
     inOrder: Array<number | string>
 
-    constructor(root: TreeNode, nodeList: Array<number | string>) {
-        this.root = root;
+    constructor(nodeList: Array<number | string | null>) {
+        this.root = new TreeNode(nodeList[0]);
         this.preOrder = [];
         this.postOrder = [];
         this.inOrder = [];
         this.createTreeLevelOrder(this.root, nodeList);
     }
 
-    createTreeLevelOrder(root: TreeNode, nodeList: Array<number | string>): void {
+    createTreeLevelOrder(root: TreeNode, nodeList: Array<number | string | null>): void {
         const queue: TreeNode[] = [root];
         let i = 1;
 
@@ -76,7 +76,6 @@ export class BinaryTree {
 // POST-ORDER -> LEFT RIGHT ROOT
 
 // Example usage
-// const root = new TreeNode(1);
-// const newTree = new BinaryTree(root, [1, 2, 3, 4, 5, 6, 7]);
+// const newTree = new BinaryTree([1, 2, 3, 4, 5, 6, 7]);
 
 // console.log(newTree);

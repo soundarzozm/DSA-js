@@ -1,7 +1,6 @@
 import { BinaryTree, TreeNode } from './index'
 
-const root = new TreeNode(1);
-const newTree = new BinaryTree(root, [1, 3, 4, 5, 2, 7, 6]);
+const newTree = new BinaryTree([3, 9, 20, null, null, 15, 7]);
 
 newTree.preOrderTraversal(newTree.root)
 console.log(newTree.preOrder)
