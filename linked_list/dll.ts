@@ -1,4 +1,4 @@
-class DLLNode {
+export class DLLNode {
     prev: DLLNode | null;
     value: string | number;
     next: DLLNode | null
@@ -10,7 +10,7 @@ class DLLNode {
     }
 }
 
-class DLL {
+export class DLL {
     head: DLLNode
     constructor(nodeList: Array<number | string>) {
         this.head = new DLLNode(nodeList[0])
@@ -22,10 +22,8 @@ class DLL {
             currentNode.next.prev = currentNode
             currentNode = currentNode.next
         }
-
-        
     }
 }
 
-let myDll = new DLL([1, 2, 3, 4, 5])
-console.log(myDll.head.next?.next?.next?.next)
+// let myDll = new DLL([1, 2, 3, 4, 5])
+// console.log(myDll.head.next?.next?.next?.next)

@@ -1,4 +1,4 @@
-class LLNode {
+export class LLNode {
     value: string | number;
     next: LLNode | null
 
@@ -8,7 +8,7 @@ class LLNode {
     }
 }
 
-class LL {
+export class LL {
     head: LLNode
     constructor(nodeList: Array<number | string>) {
         this.head = new LLNode(nodeList[0])
@@ -22,5 +22,5 @@ class LL {
     }
 }
 
-let myLl = new LL([1, 2, 3, 4, 5])
-console.log(myLl.head.next?.next)
+// let myLl = new LL([1, 2, 3, 4, 5])
+// console.log(myLl.head.next?.next)
