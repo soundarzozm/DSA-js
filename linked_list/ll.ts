@@ -1,8 +1,8 @@
-export class LLNode {
-  value: string | number;
-  next: LLNode | null;
+export class LLNode<T> {
+  value: T;
+  next: LLNode<T> | null;
 
-  constructor(value: string | number) {
+  constructor(value: T) {
     this.value = value;
     this.next = null;
   }
@@ -24,9 +24,9 @@ export class LLNode {
   }
 }
 
-export class LL {
-  head: LLNode;
-  constructor(nodeList: Array<number | string>) {
+export class LL<T> {
+  head: LLNode<T>;
+  constructor(nodeList: Array<T>) {
     this.head = new LLNode(nodeList[0]);
 
     let currentNode = this.head;
