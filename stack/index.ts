@@ -1,7 +1,7 @@
-export class Stack {
-  array: Array<any>;
-  constructor(arr: Array<any>) {
-    this.array = arr;
+export class Stack<T> {
+  array: Array<T>;
+  constructor(arr?: Array<T>) {
+    this.array = arr ? arr : [];
   }
 
   push(element: any) {
@@ -10,5 +10,17 @@ export class Stack {
 
   pop() {
     return this.array.pop();
+  }
+
+  empty() {
+    return this.array.length === 0;
+  }
+
+  top() {
+    return this.array.slice(-1)[0];
+  }
+
+  size() {
+    return this.array.length;
   }
 }

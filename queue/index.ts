@@ -1,7 +1,7 @@
-export class Queue {
-  array: Array<any>;
-  constructor(arr: Array<any>) {
-    this.array = arr;
+export class Queue<T> {
+  array: Array<T>;
+  constructor(arr?: Array<T>) {
+    this.array = arr ? arr : [];
   }
 
   push(element: any) {
@@ -9,6 +9,18 @@ export class Queue {
   }
 
   pop() {
-    return this.array.shift();
+    return this.array.pop();
+  }
+
+  empty() {
+    return this.array.length === 0;
+  }
+
+  peek() {
+    return this.array.slice(-1)[0];
+  }
+
+  size() {
+    return this.array.length;
   }
 }
