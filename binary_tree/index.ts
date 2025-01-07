@@ -91,6 +91,37 @@ export class BinaryTree {
   }
 }
 
+export class BinarySearchTree {
+  root: TreeNode | null;
+  preOrder: Array<number | string>;
+  postOrder: Array<number | string>;
+  inOrder: Array<number | string>;
+  levelOrder: Array<number | string>;
+
+  constructor(nodeList: Array<number | string | null>) {
+    let l = 0;
+    let r = nodeList.length;
+
+    this.root = this.helper(
+      l,
+      r,
+      nodeList.sort((a, b) => a - b)
+    );
+  }
+
+  helper(l: number, r: number, nums: Array<number | string | null>) {
+    if (l > r) return null;
+
+    let m = Math.floor((l + r) / 2);
+
+    let root = new TreeNode(nums[m]);
+    root.left = this.helper(l, m - 1, nums);
+    root.right = this.helper(m + 1, r, nums);
+
+    return root;
+  }
+}
+
 // INORDER -> LEFT ROOT RIGHT
 // PRE-ORDER -> ROOT LEFT RIGHT
 // POST-ORDER -> LEFT RIGHT ROOT
