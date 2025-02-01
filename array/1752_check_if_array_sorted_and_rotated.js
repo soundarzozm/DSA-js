@@ -1,5 +1,5 @@
 class Solution {
-  check(arr) {
+    check(arr) {
     let isRotated = false;
     let rotatedIdx = -1;
 
