@@ -1,4 +1,5 @@
 // Kadane's algorithm
+// If the localSum till a point is negative, there is no point in considering that subarray.
 
 function maxSubArray(nums: number[]): number {
   let globalSum = nums[0]

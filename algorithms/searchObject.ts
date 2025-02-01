@@ -16,6 +16,10 @@ const searchParams: Array<SearchParam> = [
   },
 ];
 
+// Types you should check
+// - Array
+// - Object
+
 const searchObject = (key: string, value: any, jsObject: any): boolean => {
   if (typeof jsObject === "object" && jsObject !== null) {
     if (Array.isArray(jsObject)) {

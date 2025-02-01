@@ -1,6 +1,10 @@
 function productExceptSelf(nums: number[]): number[] {
   let ans: number[] = []
 
+  // [a, b, c, d]
+  // prefix -> [1, a, a*b, a*b*c]
+  // suffix -> [b*c*d, c*d, d, 1]
+
   for (let i = 0; i < nums.length; i++) {
     ans.push(1)
   }

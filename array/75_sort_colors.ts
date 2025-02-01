@@ -1,4 +1,5 @@
 // Dutch Flag Algorithm
+// Three pointers, one for each color
 
 function sortColors(nums: number[]): void {
   let l = 0;
@@ -25,5 +26,9 @@ function sortColors(nums: number[]): void {
 }
 
 let nums: number[] = [2, 0, 2, 1, 1, 0];
+// [0, 0, 2, 1, 1, 2]
+// [0, 0, 2, 1, 1, 2]
+// [0, 0, 2, 1, 1, 2]
+// [0, 0, 1, 1, 2, 2]
 sortColors(nums);
 console.log(nums);
