@@ -14,28 +14,8 @@ export class UndirectedGraph {
     this.adjacencyList.get(key2)?.push(key1);
   }
 
-  bfs(start: number | string, value: number | string) {
-    if (!this.adjacencyList.get(start)) return "Start node not found!";
-
-    let queue = [start];
-    let visited = new Set();
-    let ans = [];
-
-    while (queue.length > 0) {
-      let currentNode = queue.shift();
-      visited.add(currentNode);
-      ans.push(currentNode);
-      let connectedNodes = this.adjacencyList.get(currentNode);
-      for (let i = 0; i < connectedNodes.length; i++) {
-        if (connectedNodes[i] == value) {
-          ans.push(connectedNodes[i]);
-          return ans;
-        }
-        if (!visited.has(connectedNodes[i])) queue.push(connectedNodes[i]);
-      }
-    }
-
-    return "Element not found!";
+  getAdjacencyList() {
+    return this.adjacencyList
   }
 }
 

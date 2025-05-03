@@ -22,31 +22,25 @@ routes.forEach((route) => {
   graph.addEdge(route[0], route[1]);
 });
 
-export function bfs(source: number | string, graph: Map<number | string, Array<number | string>>, searchTerm?: number | string) {
+export function dfs(source: number | string, graph: Map<number | string, Array<number | string>>, searchTerm?: number | string) {
   if (!graph.has(source)) return "Invalid starting node!"
   
   let visited: Set<number | string> = new Set()
   let ans: Array<number | string> = []
-  let queue: Array<number | string> = [source]
+  let stack: Array<number | string> = [source]
 
-  while (queue.length > 0) {
-    let currentNode: number | string = queue.shift()
+  while (stack.length > 0) {
+    let currentNode = stack.pop()
     visited.add(currentNode)
     ans.push(currentNode)
-    let connectedNodes: Array<number | string> = graph.get(currentNode)
-    
-    for (let node: number | string of connectedNodes) {
-      if (searchTerm && node === searchTerm) {
-        ans.push(node)
-        return ans
-      }
-      if (!visited.has(node)) {
-        queue.push(node)
-      }
+    let connectedNodes = graph.get(currentNode)
+
+    for (let node of connectedNodes) {
+      if (!visited.has(node)) stack.push(node)
     }
   }
 
   return ans
 }
 
-console.log(bfs("JFK", graph.getAdjacencyList()));
+console.log(dfs("JFK", graph.getAdjacencyList()));
