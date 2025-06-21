@@ -1,33 +1,22 @@
 function lengthOfLongestSubstring(s: string): number {
-  let len = s.length;
-  if (len === 0 || len === 1) return len;
+  let left = 0;
+  let right = 0;
+  let ans = 0;
 
-  let maxLen = 1;
-  let currLen = 1;
+  let set = new Set();
 
-  let start = 0;
-  let end = 1;
-
-  let hashSet = new Set();
-  hashSet.add(s[start]);
-
-  while (end < len) {
-    if (hashSet.has(s[end])) {
-      while (hashSet.has(s[end])) {
-        hashSet.delete(s[start]);
-        start += 1;
-        currLen -= 1;
-      }
-      hashSet.add(s[end]);
-      end += 1;
-      currLen += 1;
-    } else {
-      hashSet.add(s[end]);
-      currLen += 1;
-      end += 1;
+  while (right < s.length) {
+    if (!set.has(s[right])) {
+      set.add(s[right]);
+      right += 1;
+      ans = Math.max(ans, right - left);
     }
-    maxLen = Math.max(maxLen, currLen);
+
+    while (left < right && set.has(s[right])) {
+      set.delete(s[left]);
+      left += 1;
+    }
   }
 
-  return maxLen;
+  return ans;
 }
