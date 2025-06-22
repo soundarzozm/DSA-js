@@ -1,48 +1,16 @@
 import { Deque } from "./deque.js";
 
 function maxSlidingWindow(nums: number[], k: number): number[] {
-  let deque: Deque<number> = new Deque();
-  let ans = new Array();
+  let deq = new Deque<number>();
+  let ans: number[] = [];
 
-  let left = 0;
-  let right = 0;
+  for (let i = 0; i < nums.length; ++i) {
+    while (!deq.isEmpty() && deq.front() < i - k + 1) deq.popFront();
 
-  while (right < k) {
-    if (deque.isEmpty()) deque.pushFront(nums[right]);
-    else if (nums[right] > deque.front()) {
-      while (!deque.isEmpty() && nums[right] > deque.front()) {
-        deque.popFront();
-      }
-      deque.pushFront(nums[right]);
-    } else {
-      while (!deque.isEmpty() && nums[right] > deque.back()) {
-        deque.popBack();
-      }
-      deque.pushBack(nums[right]);
-    }
-    right += 1;
-  }
+    while (!deq.isEmpty() && nums[i] > nums[deq.back()]) deq.popBack();
+    deq.pushBack(i);
 
-  ans.push(deque.front());
-
-  while (right < nums.length) {
-    if (nums[left] === deque.front()) deque.popFront();
-
-    if (deque.isEmpty()) deque.pushFront(nums[right]);
-    else if (nums[right] > deque.front()) {
-      while (!deque.isEmpty() && nums[right] > deque.front()) {
-        deque.popFront();
-      }
-      deque.pushFront(nums[right]);
-    } else {
-      while (!deque.isEmpty() && nums[right] > deque.back()) {
-        deque.popBack();
-      }
-      deque.pushBack(nums[right]);
-    }
-    left += 1;
-    right += 1;
-    ans.push(deque.front());
+    if (i > k - 2) ans.push(nums[deq.front()]);
   }
 
   return ans;
