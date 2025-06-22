@@ -1,4 +1,4 @@
-function minWindow(s: string, t: string): string {
+function minWindowSlow(s: string, t: string): string {
   let left = 0;
   let right = 0;
 
@@ -35,6 +35,47 @@ function checkValidity(sArr: number[], tArr: number[]): boolean {
   }
 
   return true;
+}
+
+function minWindow(s: string, t: string): string {
+  if (t === "") return "";
+
+  let left = 0;
+  let right = 0;
+
+  let ans = [-1, -1];
+  let ansLen = Infinity;
+
+  let countT = new Map();
+  let window = new Map();
+
+  for (let char of t) countT.set(char, (countT.get(char) || 0) + 1);
+
+  let have = 0;
+  let need = countT.size;
+
+  for (right = 0; right < s.length; ++right) {
+    let charR = s[right];
+    window.set(charR, (window.get(charR) || 0) + 1);
+
+    if (countT.has(charR) && window.get(charR)! === countT.get(charR)!) have++;
+
+    while (have === need) {
+      if (right - left + 1 < ansLen) {
+        ans = [left, right + 1];
+        ansLen = right - left + 1;
+      }
+
+      let charL = s[left];
+      window.set(charL, window.get(charL)! - 1);
+
+      if (countT.has(charL) && window.get(charL)! < countT.get(charL)!) have--;
+      left++;
+    }
+  }
+
+  if (ansLen === Infinity) return "";
+  return s.substring(ans[0], ans[1]);
 }
 
 let s = "ADOBECODEBANC";
