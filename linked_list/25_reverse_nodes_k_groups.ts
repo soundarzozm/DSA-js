@@ -46,7 +46,7 @@ function reverseKGroup(head: ListNode | null, k: number): ListNode | null {
     counter += 1;
   }
 
-  prevTail.next = cur;
+  if (prevTail) prevTail.next = cur;
 
   return mainHead;
 }
