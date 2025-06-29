@@ -1,24 +1,24 @@
-export class TreeNode {
-  value: number | string | null; // Use number (primitive) instead of Number
-  left: TreeNode | null;
-  right: TreeNode | null;
+export class TreeNode<T> {
+  value: T; // Use number (primitive) instead of Number
+  left: TreeNode<T> | null;
+  right: TreeNode<T> | null;
 
-  constructor(value: number | string | null = null) {
+  constructor(value: T) {
     this.value = value;
     this.left = null;
     this.right = null;
   }
 }
 
-export class BinaryTree {
-  root: TreeNode;
+export class BinaryTree<T> {
+  root: TreeNode<T>;
   preOrder: Array<number | string>;
   postOrder: Array<number | string>;
   inOrder: Array<number | string>;
   levelOrder: Array<number | string>;
 
-  constructor(nodeList: Array<number | string | null>) {
-    this.root = new TreeNode(nodeList[0]);
+  constructor(nodeList: Array<T>) {
+    this.root = new TreeNode<T>(nodeList[0]);
     this.preOrder = [];
     this.postOrder = [];
     this.inOrder = [];
@@ -26,8 +26,8 @@ export class BinaryTree {
     this.createTreeLevelOrder(this.root, nodeList);
   }
 
-  createTreeLevelOrder(root: TreeNode, nodeList: Array<number | string | null>): void {
-    const queue: TreeNode[] = [root];
+  createTreeLevelOrder(root: TreeNode<T>, nodeList: Array<T>): void {
+    const queue: TreeNode<T>[] = [root];
     let i = 1;
 
     while (i < nodeList.length) {
@@ -52,7 +52,7 @@ export class BinaryTree {
     }
   }
 
-  preOrderTraversal(root: TreeNode | null): void {
+  preOrderTraversal(root: TreeNode<T> | null): void {
     if (!root?.value) return;
 
     this.preOrder.push(root.value);
@@ -60,7 +60,7 @@ export class BinaryTree {
     this.preOrderTraversal(root.right);
   }
 
-  postOrderTraversal(root: TreeNode | null): void {
+  postOrderTraversal(root: TreeNode<T> | null): void {
     if (!root?.value) return;
 
     this.postOrderTraversal(root.left);
@@ -68,7 +68,7 @@ export class BinaryTree {
     this.postOrder.push(root.value);
   }
 
-  inOrderTraversal(root: TreeNode | null): void {
+  inOrderTraversal(root: TreeNode<T> | null): void {
     if (!root?.value) return;
 
     this.inOrderTraversal(root.left);
@@ -76,13 +76,13 @@ export class BinaryTree {
     this.inOrderTraversal(root.right);
   }
 
-  levelOrderTraversal(root: TreeNode | null): void {
+  levelOrderTraversal(root: TreeNode<T> | null): void {
     if (!root?.value) return;
 
-    let queue: Array<TreeNode> = [root];
+    let queue: Array<TreeNode<T>> = [root];
 
     while (queue.length > 0) {
-      let currentNode: TreeNode = queue.shift();
+      let currentNode: TreeNode<T> = queue.shift();
       this.levelOrder.push(currentNode.value);
 
       if (currentNode?.left) queue.push(currentNode.left);
@@ -91,30 +91,30 @@ export class BinaryTree {
   }
 }
 
-export class BinarySearchTree {
-  root: TreeNode | null;
-  preOrder: Array<number | string>;
-  postOrder: Array<number | string>;
-  inOrder: Array<number | string>;
-  levelOrder: Array<number | string>;
+export class BinarySearchTree<T> {
+  root: TreeNode<T> | null;
+  preOrder: Array<T>;
+  postOrder: Array<T>;
+  inOrder: Array<T>;
+  levelOrder: Array<T>;
 
-  constructor(nodeList: Array<number | string | null>) {
+  constructor(nodeList: Array<T | null>) {
     let l = 0;
     let r = nodeList.length;
 
     this.root = this.helper(
       l,
       r,
-      nodeList.sort((a, b) => a - b)
+      nodeList.sort((a, b) => a - b),
     );
   }
 
-  helper(l: number, r: number, nums: Array<number | string | null>) {
+  helper(l: T, r: T, nums: Array<T | null>) {
     if (l > r) return null;
 
     let m = Math.floor((l + r) / 2);
 
-    let root = new TreeNode(nums[m]);
+    let root = new TreeNode<T>(nums[m]);
     root.left = this.helper(l, m - 1, nums);
     root.right = this.helper(m + 1, r, nums);
 
