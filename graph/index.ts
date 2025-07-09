@@ -27,24 +27,50 @@ export class UndirectedGraph<T> {
     let queue: Array<[T, number]> = [[source, 0]];
     let traversal: Array<[T, number]> = [];
 
+    visited.add(source);
+
     while (queue.length > 0) {
       let currentNode: [T, number] = queue.shift();
-      visited.add(currentNode[0]);
       traversal.push(currentNode);
 
-      let connectedNodes: Array<[T, number]> = this.adjacencyList.get(
-        currentNode[0],
-      );
+      let connectedNodes: Array<[T, number]> =
+        this.adjacencyList.get(currentNode[0]) || [];
 
       for (let node of connectedNodes) {
-        if (searchTerm && node[0] === searchTerm) {
-          traversal.push(node);
-          return traversal;
+        if (!visited.has(node[0])) {
+          if (searchTerm && node[0] === searchTerm) {
+            traversal.push(node);
+            return traversal;
+          }
+          queue.push(node);
+          visited.add(node[0]);
         }
-
-        if (!visited.has(node[0])) queue.push(node);
       }
     }
+
+    return traversal;
+  }
+
+  dfs(source: T, searchTerm?: T) {
+    if (!this.adjacencyList.has(source)) return "Source node not found!";
+
+    let visited: Set<T> = new Set();
+    let traversal: Array<[T, number]> = [];
+
+    const traverse = (node: [T, number]) => {
+      if (searchTerm && visited.has(searchTerm)) return;
+      if (visited.has(node[0])) return;
+
+      visited.add(node[0]);
+      traversal.push(node);
+
+      let connectedNodes = this.adjacencyList.get(node[0]);
+      for (let i = 0; i < connectedNodes.length; ++i) {
+        traverse(connectedNodes[i]);
+      }
+    };
+
+    traverse([source, 0]);
 
     return traversal;
   }
@@ -73,4 +99,5 @@ routes.forEach((route) => {
 });
 
 // console.log(graph.adjacencyList);
-console.log(graph.bfs("PHX", "bruh"));
+console.log("BFS", graph.bfs("PHX"));
+console.log("DFS", graph.dfs("PHX"));
