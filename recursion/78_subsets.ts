@@ -1,10 +1,11 @@
 function subsets(nums: number[]): number[][] {
   let ans: number[][] = [];
+  let n: number = nums.length;
 
-  function backtrack(arr: number[], idx: number): void {
+  function backtrack(arr: number[], idx: number) {
     ans.push([...arr]);
 
-    for (let i = idx; i < nums.length; ++i) {
+    for (let i = idx; i < n; ++i) {
       arr.push(nums[i]);
       backtrack(arr, i + 1);
       arr.pop();
