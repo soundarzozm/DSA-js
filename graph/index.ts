@@ -59,14 +59,13 @@ export class UndirectedGraph<T> {
 
     const traverse = (node: [T, number]) => {
       if (searchTerm && visited.has(searchTerm)) return;
-      if (visited.has(node[0])) return;
 
       visited.add(node[0]);
       traversal.push(node);
 
       let connectedNodes = this.adjacencyList.get(node[0]);
       for (let i = 0; i < connectedNodes.length; ++i) {
-        traverse(connectedNodes[i]);
+        if (!visited.has(connectedNodes[i][0])) traverse(connectedNodes[i]);
       }
     };
 
@@ -100,4 +99,4 @@ routes.forEach((route) => {
 
 // console.log(graph.adjacencyList);
 console.log("BFS", graph.bfs("PHX"));
-console.log("DFS", graph.dfs("PHX"));
+console.log("DFS", graph.dfs("PHX", "JFK"));
