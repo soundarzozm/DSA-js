@@ -1,5 +1,5 @@
 function solveNQueens(n: number): string[][] {
-  let ans = [];
+  let ans: Array<Array<string>> = [];
 
   // incDiag - r + c is constant
   // decDiag - r - c is constant
@@ -29,14 +29,28 @@ function solveNQueens(n: number): string[][] {
       ans.push(buff);
     }
 
-    let curID = i + j;
-    let curDD = i - j;
+    for (let col = 0; col < n; ++col) {
+      if (cols.has(col) || incDiag.has(row + col) || decDiag.has(row - col))
+        continue;
 
-    if (incDiag.has(curID) || decDiag.has(curDD) || cols.has(j)) return false;
+      board[row][col] = "Q";
+      cols.add(col);
+      incDiag.add(row + col);
+      decDiag.add(row - col);
+
+      backtrack(row + 1);
+
+      board[row][col] = ".";
+      cols.delete(col);
+      incDiag.delete(row + col);
+      decDiag.delete(row - col);
+    }
   }
+
+  backtrack(0);
 
   return ans;
 }
 
-let n = 4;
+let n = 5;
 console.log(solveNQueens(n));
