@@ -7,8 +7,26 @@ function solveNQueens(n: number): string[][] {
   let decDiag = new Set();
   let cols = new Set();
 
-  function backtrack(i, j, count) {
-    if (count === n) {
+  // [    0      1      2      3
+  // 0 [(0,0), (0,1), (0,2), (0,3)]
+  // 1 [(1,0), (1,1), (1,2), (1,3)]
+  // 2 [(2,0), (2,1), (2,2), (2,3)]
+  // 3 [(3,0), (3,1), (3,2), (3,3)]
+  // ]
+
+  let board: string[][] = [];
+  for (let i = 0; i < n; ++i) {
+    let row = new Array(n).fill(".");
+    board.push(row);
+  }
+
+  function backtrack(row: number) {
+    if (row === n) {
+      let buff: any[] = [...board];
+      for (let i = 0; i < n; ++i) {
+        buff[i] = buff[i].join("");
+      }
+      ans.push(buff);
     }
 
     let curID = i + j;
