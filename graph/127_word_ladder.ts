@@ -31,7 +31,7 @@ function ladderLength(
     visited.add(from);
 
     while (queue.length > 0) {
-      let [cur, level] = queue.shift();
+      let [cur, level] = queue.shift()!!;
 
       if (cur === endWord) {
         return level;

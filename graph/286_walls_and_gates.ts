@@ -24,7 +24,7 @@ function islandsAndTreasure(grid: number[][]): void {
   let level = 1;
 
   while (queue.length > 0) {
-    let cur = [];
+    let cur: [number, number][] = [];
 
     for (let node of queue) {
       let [x, y] = node;
