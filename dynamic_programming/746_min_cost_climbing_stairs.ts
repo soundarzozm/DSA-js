@@ -1,26 +1,31 @@
+// f(n) = dp[n] = min cost required to get to step n
+
 function minCostClimbingStairs(cost: number[]): number {
   let n = cost.length;
 
   function recursion(i: number): number {
-    if (i < 2) return cost[i];
-    return cost[i] + Math.min(recursion(i - 1), recursion(i - 2));
+    if (i <= 1) return 0;
+    return Math.min(
+      cost[i - 1] + recursion(i - 1),
+      cost[i - 2] + recursion(i - 2),
+    );
   }
 
-  return Math.min(recursion(n - 1), recursion(n - 2));
+  return recursion(n);
 }
 
 function minCostClimbingStairsBU(cost: number[]): number {
   let n = cost.length;
-  let dp = new Array(n);
+  let dp = new Array(n + 1);
 
-  dp[0] = cost[0];
-  dp[1] = cost[1];
+  dp[0] = 0;
+  dp[1] = 0;
 
-  for (let i = 2; i < n; ++i) {
-    dp[i] = cost[i] + Math.min(dp[i - 1], dp[i - 2]);
+  for (let i = 2; i <= n; i++) {
+    dp[i] = Math.min(cost[i - 1] + dp[i - 1], cost[i - 2] + dp[i - 2]);
   }
 
-  return Math.min(dp[n - 1], dp[n - 2]);
+  return dp[n];
 }
 
 function minCostClimbingStairsTD(cost: number[]): number {
@@ -28,16 +33,19 @@ function minCostClimbingStairsTD(cost: number[]): number {
   let memo = new Map();
 
   function topDown(i: number): number {
-    if (i < 2) return cost[i];
+    if (i < 2) return 0;
 
     if (!memo.has(i)) {
-      memo.set(i, cost[i] + Math.min(topDown(i - 1), topDown(i - 2)));
+      memo.set(
+        i,
+        Math.min(cost[i - 1] + topDown(i - 1), cost[i - 2] + topDown(i - 2)),
+      );
     }
 
     return memo.get(i);
   }
 
-  return Math.min(topDown(n - 1), topDown(n - 2));
+  return topDown(n);
 }
 
 let cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1];
