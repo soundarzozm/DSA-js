@@ -1,4 +1,51 @@
 function coinChange(coins: number[], amount: number): number {
+  let ans = Infinity;
+  function recursion(amt: number): number {
+    if (amt === 0) return 0;
+    if (amt < 0) return Infinity;
+
+    let res = Infinity;
+
+    for (let coin of coins) {
+      let subproblem = recursion(amt - coin);
+      if (subproblem !== Infinity) {
+        res = Math.min(res, 1 + subproblem);
+      }
+    }
+
+    return res;
+  }
+
+  ans = recursion(amount);
+  return ans === Infinity ? -1 : ans;
+}
+
+function coinChangeTD(coins: number[], amount: number): number {
+  let memo = new Map();
+
+  function recursion(amt: number): number {
+    if (amt === 0) return 0;
+    if (amt < 0) return Infinity;
+    if (memo.has(amt)) return memo.get(amt);
+
+    let res = Infinity;
+
+    for (let coin of coins) {
+      let subproblem = recursion(amt - coin);
+      if (subproblem !== Infinity) {
+        res = Math.min(res, 1 + subproblem);
+      }
+    }
+
+    memo.set(amt, res);
+    return memo.get(amt);
+  }
+
+  const ans = recursion(amount);
+  return ans === Infinity ? -1 : ans;
+}
+
+function coinChangeBU(coins: number[], amount: number): number {
   let n: number = coins.length;
   let dp: number[] = new Array(amount + 1).fill(Infinity);
 
