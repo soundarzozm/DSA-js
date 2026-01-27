@@ -43,6 +43,10 @@ export class MinHeap<T> {
     return min;
   }
 
+  public extractRoot(): T | undefined {
+    return this.extractMin();
+  }
+
   private bubbleUp(index: number): void {
     while (index > 0) {
       const parentIdx = Math.floor((index - 1) / 2);
