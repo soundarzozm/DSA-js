@@ -1,0 +1,33 @@
+/*Ways to center a div*/
+
+/* 1. Use flexbox */
+.parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 2. Use grid */
+.parent {
+    display: grid;
+    place-items: center;
+}
+
+/* 3. Use positioning and transform */
+.parent {
+    display: fixed;
+    /*or relative or absolute*/
+}
+
+.child {
+    display: abosolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 4. Horizontal only */
+.child {
+    width: 50%; /* Must have a width less than the parent */
+    margin: 0 auto;
+}
