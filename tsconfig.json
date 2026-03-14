@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs", // <--- Important
+    "moduleDetection": "force",
+    "module": "commonjs",
     "target": "es2020",
     "esModuleInterop": true,
     "strict": false,

@@ -23,7 +23,11 @@ class MyPromise {
     };
   }
 
-  then(successFunction: Function) {}
+  then(successFunction: Function) {
+    return new MyPromise((resolve, reject) => {
+      function handleSuccess() {}
+    });
+  }
 
   catch(errorFunction: Function) {}
 }
