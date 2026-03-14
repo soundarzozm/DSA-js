@@ -1,10 +1,19 @@
+// 1415. The k-th Lexicographical String of All Happy Strings of Length n
+
 function getHappyString(n: number, k: number): string {
   if (k > 3 * Math.pow(2, n - 1)) return "";
-  const allStrings = [];
+  let count = 0;
+  let ans = "";
 
   function generateString(s: string): void {
+    if (ans !== "") return;
+
     if (s.length === n) {
-      allStrings.push(s);
+      count++;
+      if (count === k) {
+        ans = s;
+        return;
+      }
       return;
     }
 
@@ -29,7 +38,7 @@ function getHappyString(n: number, k: number): string {
 
   generateString("");
 
-  return allStrings[k - 1];
+  return ans;
 }
 
 const n = 3,
