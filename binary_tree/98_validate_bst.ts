@@ -1,4 +1,4 @@
-import { TreeNode } from "./index.ts";
+import { TreeNode } from "./index";
 
 function isValidBST(root: TreeNode<number> | null): boolean {
   return validate(root, -Infinity, Infinity);
